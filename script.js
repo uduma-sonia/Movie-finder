@@ -1,67 +1,76 @@
-// const form = document.querySelector("#show-search");
-// const inputField = document.querySelector("#search-field");
-// const resultContainer = document.querySelector(".search-container");
-// const searchBtn = document.querySelector(".search-btn");
-// const onloadContainer = document.querySelector(".onload-container");
+const form = document.querySelector("#show-search");
+const inputField = document.querySelector("#search-field");
+const resultContainer = document.querySelector(".search-container");
+const searchBtn = document.querySelector(".search-btn");
+const onloadContainer = document.querySelector(".onload-container");
 
-// form.addEventListener("submit", (e) => {
-//   e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-//   getData();
-//   inputField.value = "";
-//   onloadContainer.innerHTML = "";
-// });
+  getData();
+  inputField.value = "";
+  onloadContainer.innerHTML = "";
+});
 
-// onPageLoad();
+onPageLoad();
 
-// //FUNCTION TO SHOW SOME MOVIES WHEN PAGE LOADS
-// async function onPageLoad() {
-//   const res = await axios.get(`http://api.tvmaze.com/search/shows?q=girls`);
+//FUNCTION TO SHOW SOME MOVIES WHEN PAGE LOADS
+async function onPageLoad() {
+  const res = await axios.get(`http://api.tvmaze.com/search/shows?q=girls`);
 
-//   onloadContainer.innerHTML = "";
-//   const data = res.data;
+  onloadContainer.innerHTML = "";
+  const data = res.data;
 
-//   data.forEach((show) => {
-//     console.log(show.show.name);
+  data.forEach((show) => {
+    console.log(show.show);
 
-//     onloadContainer.innerHTML += `
-//     <div>
-//           <div class="uk-card uk-card-default uk-card-body">
-//             <div class="s-grid-1">
-//               <img
-//                 src="${show.show.image.medium}"
-//               />
+    onloadContainer.innerHTML += `
+            <div>
+                <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                    <img src="${show.show.image.medium}" alt="" />
+                </div>
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">${show.show.name}</h3>
+                    <p>
+                   ${show.show.summary}
+                    </p>
+                </div>
+                </div>
+            </div>
+    `;
+  });
+}
 
-//               <h2>Name</h2>
-//               <p>
-//                ${show.show.summary}
-//               </p>
-//             </div>
+//FUNCTION FOR SEARCH
+async function getData() {
+  const inputValue = inputField.value;
+  const response = await axios.get(
+    `http://api.tvmaze.com/search/shows?q=${inputValue}`
+  );
 
-//             <div class="s-grid-2"></div>
-//           </div>
-//         </div>
-//     `;
-//   });
-// }
+  resultContainer.innerHTML = "";
 
-// //FUNCTION FOR SEARCH
-// async function getData() {
-//   const inputValue = inputField.value;
-//   const response = await axios.get(
-//     `http://api.tvmaze.com/search/shows?q=${inputValue}`
-//   );
+  response.data.forEach((show) => {
+    console.log(show.show);
+    const showImage = show.show.image.medium;
+    const showName = show.show.name;
+    const showSummary = show.show.summary;
 
-//   resultContainer.innerHTML = "";
-
-//   response.data.forEach((show) => {
-//     console.log(show.show);
-//     const showName = show.show.name;
-
-//     resultContainer.innerHTML += `
-//         <div>
-//           <p>${showName}</p>
-//         </div>
-//       `;
-//   });
-// }
+    resultContainer.innerHTML += `
+            <div>
+                <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                    <img src="${showImage}" alt="" />
+                </div>
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">${showName}</h3>
+                    <p>
+                ${showSummary}
+                    </p>
+                </div>
+                </div>
+            </div>
+      `;
+  });
+}

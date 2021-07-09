@@ -8,21 +8,107 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/css/uikit.min.css"
+    />
     <title>Movie-finder</title>
   </head>
   <body>
-    <form id="show-search">
+    <section class="navbar">
+      <div class="uk-child-width-expand@s uk-text-center" uk-grid uk-grid>
+        <div class="navbar-text">
+          <h1 class="uk-text-bold">Search for Tv Shows</h1>
+
+          <p class="uk-text-bold">
+            Summary <span>.</span> Rating <span>.</span>
+          </p>
+        </div>
+
+        <div class="navbar-form">
+          <form id="show-search">
+            <label for="search-field"> <span uk-search-icon></span></label>
+            <input type="text" id="search-field" />
+
+            <button type="submit" class="submit-btn">Search</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="uk-margin-medium-top uk-container">
+      <div
+        class="
+          uk-grid-column-small
+          uk-grid-row-large
+          uk-child-width-1-3@s
+          uk-text-center
+          onload-container
+          uk-grid-match
+        "
+        uk-grid
+      >
+        <div>
+          <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+              <img src="./lucifer poster.jpeg" alt="" />
+            </div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Media Top</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+              <img src="./lucifer poster.jpeg" alt="" />
+            </div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Media Top</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+              <img src="./lucifer poster.jpeg" alt="" />
+            </div>
+            <div class="uk-card-body">
+              <h3 class="uk-card-title">Media Top</h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <form id="show-search">
       <label for="search-field"> Search</label>
       <input type="text" id="search-field" />
 
       <button type="submit" class="search-btn">Submit</button>
     </form>
 
-    <section class="result-container">
-      <!-- <div>
-        <img src="" alt="" />
-      </div> -->
-    </section>
+    <section class="onload-container"></section>
+
+     -->
+
+    <!-- <section class="search-container"></section> -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.0/dist/js/uikit-icons.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

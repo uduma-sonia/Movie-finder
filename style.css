@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 150px;
+  height: 150px;
+}
+
+.result-container > div {
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}

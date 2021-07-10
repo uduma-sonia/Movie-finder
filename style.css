@@ -4,6 +4,16 @@ body {
   font-family: "Quicksand", sans-serif;
 }
 
+@supports (display: grid) {
+  .onload-container,
+  .search-container {
+    display: grid;
+    grid-template-columns: 320px 320px 320px;
+    justify-content: center;
+    grid-gap: 30px;
+  }
+}
+
 .navbar {
   width: 100%;
   border-bottom-left-radius: 20px;
@@ -52,13 +62,13 @@ input {
   cursor: pointer;
 }
 
-.onload-container,
+/* .onload-container,
 .search-container {
   display: grid;
   grid-template-columns: 320px 320px 320px;
   justify-content: center;
   grid-gap: 30px;
-}
+} */
 
 .onload-container > div,
 .search-container > div {
@@ -89,6 +99,7 @@ input {
 .rating span {
   background-color: #070813;
   padding: 5px;
+  border-radius: 2px;
 }
 
 .overlay {
@@ -117,7 +128,14 @@ input {
   color: red;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 900px) {
+  .onload-container,
+  .search-container {
+    grid-template-columns: 270px 270px;
+    grid-gap: 50px;
+  }
+}
+@media only screen and (max-width: 600px) {
   .navbar-form {
     height: 10vh;
   }
@@ -132,6 +150,6 @@ input {
 
   .onload-container,
   .search-container {
-    grid-template-columns: 300px;
+    grid-template-columns: 80vw;
   }
 }

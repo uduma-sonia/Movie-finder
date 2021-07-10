@@ -68,7 +68,9 @@ async function getData() {
                 <div>
                     <img src="${showImage}" alt="" />
                     <h3 class="movie-name uk-text-bold">${showName}</h3>
-                    <p class="rating">Rating: <span>${rating} </span></p>
+                    <p class="${ratingClass(
+                      rating
+                    )}">Rating: <span>${rating} </span></p>
                     <p>Genres: ${genres}</p>
                 </div>
 
@@ -80,6 +82,14 @@ async function getData() {
             </div>
       `;
   });
+}
+
+function ratingClass(rating) {
+  if (rating >= 5) {
+    return "green";
+  } else {
+    return "red";
+  }
 }
 
 axios.interceptors.request.use(

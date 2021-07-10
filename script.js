@@ -82,25 +82,4 @@ async function getData() {
   });
 }
 
-axios.interceptors.request.use(
-  function (config) {
-    searchFunc.textContent = "Searching...";
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-
-axios.interceptors.response.use(
-  function (response) {
-    searchFunc.textContent = "";
-    return response;
-  },
-  function (error) {
-    searchFunc.textContent = "not found";
-
-    return Promise.reject(error);
-  }
-);
 onPageLoad();

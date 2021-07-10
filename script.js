@@ -1,79 +1,106 @@
-// const form = document.querySelector("#show-search");
-// const inputField = document.querySelector("#search-field");
-// const resultContainer = document.querySelector(".search-container");
-// const searchBtn = document.querySelector(".search-btn");
-// const onloadContainer = document.querySelector(".onload-container");
+const form = document.querySelector("#show-search");
+const inputField = document.querySelector("#search-field");
+const resultContainer = document.querySelector(".search-container");
+const searchBtn = document.querySelector(".search-btn");
+const onloadContainer = document.querySelector(".onload-container");
+const searchFunc = document.querySelector(".A-I");
 
-// form.addEventListener("submit", (e) => {
-//   e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-//   getData();
-//   inputField.value = "";
-//   onloadContainer.innerHTML = "";
-// });
+  getData();
+  inputField.value = "";
+  onloadContainer.innerHTML = "";
+});
 
-// onPageLoad();
+//FUNCTION TO SHOW SOME MOVIES WHEN PAGE LOADS
+async function onPageLoad() {
+  const res = await axios.get(`http://api.tvmaze.com/search/shows?q=boy`);
 
-// //FUNCTION TO SHOW SOME MOVIES WHEN PAGE LOADS
-// async function onPageLoad() {
-//   const res = await axios.get(`http://api.tvmaze.com/search/shows?q=boy`);
+  onloadContainer.innerHTML = "";
+  res.data.forEach((show) => {
+    const data = show.show;
 
-//   onloadContainer.innerHTML = "";
-//   const data = res.data;
+    const genres = data.genres;
+    const showImage = data.image.medium;
+    const showName = data.name;
+    const showSummary = data.summary;
+    const rating = data.rating.average;
 
-//   data.forEach((show) => {
-//     console.log(show.show);
-//     const showImage = show.show.image.medium;
-//     const showName = show.show.name;
-//     const showSummary = show.show.summary;
+    onloadContainer.innerHTML += `
+            <div class="movie">
+                <div>
+                    <img src="${showImage}" alt="" />
+                    <h3 class="movie-name uk-text-bold">${showName}</h3>
+                    <p class="rating">Rating: <span>${rating} </span></p>
+                    <p>Genres: ${genres}</p>
+                </div>
 
-//     onloadContainer.innerHTML += `
-//             <div>
-//                 <div class="uk-card uk-card-default">
-//                 <div class="uk-card-media-top">
-//                 <img src="${showImage}" alt="" />
-//                 </div>
-//                 <div class="uk-card-body">
-//                 <h3 class="uk-card-title">${showName}</h3>
-//                     <p>
-//                     ${showSummary}
-//                     </p>
-//                 </div>
-//                 </div>
-//             </div>
-//     `;
-//   });
-// }
+                <div class="overlay">
+                    <p>
+                       ${showSummary}
+                    </p>
+                </div>
+            </div>
+    `;
+  });
+}
 
-// //FUNCTION FOR SEARCH
-// async function getData() {
-//   const inputValue = inputField.value;
-//   const response = await axios.get(
-//     `http://api.tvmaze.com/search/shows?q=${inputValue}`
-//   );
+//FUNCTION FOR SEARCH
+async function getData() {
+  const inputValue = inputField.value;
+  const response = await axios.get(
+    `http://api.tvmaze.com/search/shows?q=${inputValue}`
+  );
 
-//   resultContainer.innerHTML = "";
+  resultContainer.innerHTML = "";
+  response.data.forEach((show) => {
+    const data = show.show;
 
-//   response.data.forEach((show) => {
-//     console.log(show.show);
-//     const showImage = show.show.image.medium;
-//     const showName = show.show.name;
-//     const showSummary = show.show.summary;
+    const genres = data.genres;
+    const showImage = data.image.medium;
+    const showName = data.name;
+    const showSummary = data.summary;
+    const rating = data.rating.average;
 
-//     resultContainer.innerHTML += `
-//             <div>
-//                 <div class="uk-card uk-card-default">
-//                 <div class="uk-card-media-top">
-//                     <img src="${showImage}" alt="" />
-//                 </div>
-//                 <div class="uk-card-body">
-//                     <h3 class="uk-card-title">${showName}</h3>
-//                     <p>
-//                 ${showSummary}
-//                     </p>
-//                 </div>
-//                 </div>
-//             </div>
-//       `;
-//   });
-// }
+    resultContainer.innerHTML += `
+            <div class="movie">
+                <div>
+                    <img src="${showImage}" alt="" />
+                    <h3 class="movie-name uk-text-bold">${showName}</h3>
+                    <p class="rating">Rating: <span>${rating} </span></p>
+                    <p>Genres: ${genres}</p>
+                </div>
+
+                <div class="overlay">
+                    <p>
+                    ${showSummary}
+                    </p>
+                </div>
+            </div>
+      `;
+  });
+}
+
+axios.interceptors.request.use(
+  function (config) {
+    searchFunc.textContent = "Searching...";
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  function (response) {
+    searchFunc.textContent = "";
+    return response;
+  },
+  function (error) {
+    searchFunc.textContent = "not found";
+
+    return Promise.reject(error);
+  }
+);
+onPageLoad();

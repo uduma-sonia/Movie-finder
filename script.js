@@ -15,7 +15,7 @@ form.addEventListener("submit", (e) => {
 
 //FUNCTION TO SHOW SOME MOVIES WHEN PAGE LOADS
 async function onPageLoad() {
-  const res = await axios.get(`http://api.tvmaze.com/search/shows?q=boy`);
+  const res = await axios.get(`https://api.tvmaze.com/search/shows?q=boy`);
 
   onloadContainer.innerHTML = "";
   res.data.forEach((show) => {
@@ -50,7 +50,7 @@ async function onPageLoad() {
 async function getData() {
   const inputValue = inputField.value;
   const response = await axios.get(
-    `http://api.tvmaze.com/search/shows?q=${inputValue}`
+    `https://api.tvmaze.com/search/shows?q=${inputValue}`
   );
 
   resultContainer.innerHTML = "";
@@ -82,4 +82,25 @@ async function getData() {
   });
 }
 
+axios.interceptors.request.use(
+  function (config) {
+    searchFunc.textContent = "Searching...";
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
+axios.interceptors.response.use(
+  function (response) {
+    searchFunc.textContent = "";
+    return response;
+  },
+  function (error) {
+    searchFunc.textContent = "not found";
+
+    return Promise.reject(error);
+  }
+);
 onPageLoad();

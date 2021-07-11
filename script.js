@@ -32,7 +32,9 @@ async function onPageLoad() {
                 <div>
                     <img src="${showImage}" alt="" />
                     <h3 class="movie-name uk-text-bold">${showName}</h3>
-                    <p class="rating">Rating: <span>${rating} </span></p>
+                    <p class="${ratingClass(rating)}">Rating: <span>${setRating(
+      rating
+    )} </span></p>
                     <p>Genres: ${genres}</p>
                 </div>
 
@@ -68,9 +70,9 @@ async function getData() {
                 <div>
                     <img src="${showImage}" alt="" />
                     <h3 class="movie-name uk-text-bold">${showName}</h3>
-                    <p class="${ratingClass(
-                      rating
-                    )}">Rating: <span>${rating} </span></p>
+                    <p class="${ratingClass(rating)}">Rating: <span>${setRating(
+      rating
+    )} </span></p>
                     <p>Genres: ${genres}</p>
                 </div>
 
@@ -84,6 +86,16 @@ async function getData() {
   });
 }
 
+//FUNCTION TO SET RATING VALUE
+function setRating(rating) {
+  if (rating <= 0) {
+    return "0";
+  } else {
+    return `${rating}`;
+  }
+}
+
+//FUNCTION TO SET RATING COLOR
 function ratingClass(rating) {
   if (rating >= 5) {
     return "green";
